@@ -1,4 +1,4 @@
-function Inventory() {
+function Customers() {
   return (
     <div>
       <div></div>
@@ -6,4 +6,4 @@ function Inventory() {
   );
 }
 
-export default Inventory;
+export default Customers;

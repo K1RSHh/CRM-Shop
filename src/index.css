@@ -1,5 +1,39 @@
 @import "tailwindcss";
 
 body {
-  background-color: rgb(41, 41, 41);
+  max-width: 1440px;
+  background-color: #d2c4b4;
+  display: flex;
+  margin: 0 auto;
+  color: #fff;
+  height: 100vh;
+}
+
+@theme {
+  --color-primary: #81a6c6; /* Dusty Blue */
+  --color-primary-foreground: #ffffff;
+
+  --color-background: #f3e3d0; /* Creamy фон */
+  --color-foreground: #2d2d2d;
+
+  --color-accent: #aacddc; /* Light Blue */
+  --color-sand: #d2c4b4; /* Warm Sand */
+
+  --color-border: #d2c4b4;
+  --color-input: #d2c4b4;
+  --color-ring: #81a6c6;
+
+  --radius-xl: 1rem;
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+}
+
+/* Налаштування базових стилів */
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
 }
