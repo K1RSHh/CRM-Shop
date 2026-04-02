@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import type { ReactNode } from "react";
 import { motion } from "motion/react"; // або framer-motion
 import {
   HouseLineIcon,
@@ -42,14 +43,14 @@ function Sidebar() {
     isCollapsed,
     link,
   }: {
-    icon: any;
+    icon: ReactNode;
     label: string;
     isCollapsed: boolean;
     link: string;
   }) => (
     <NavLink to={link}>
-      <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-background/50 cursor-pointer text-white hover:text-primary transition-all">
-        <div className="min-w-6">{icon}</div>
+      <div className="flex w-full items-center justify-center gap-4 p-3 rounded-lg hover:bg-primary cursor-pointer transition-all">
+        <div className="min-w-6 ">{icon}</div>
 
         {!isCollapsed && (
           <motion.span
@@ -69,16 +70,16 @@ function Sidebar() {
     <motion.aside
       initial={false}
       animate={{ width: isCollapsed ? 80 : 260 }}
-      className="relative flex flex-col h-screen bg-orange-100/20 border-r border-sand shadow-sm"
+      className="relative flex my-3 rounded-2xl flex-col h-screen bg-background"
     >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-10 bg-primary text-white rounded-full p-1 border border-white shadow-md hover:bg-accent transition-colors"
+        className="absolute -right-3 top-10 cursor-pointer bg-secondary text-black rounded-full p-1 border border-black shadow-md hover:bg-accent transition-colors"
       >
         {isCollapsed ? <CaretRight size={16} /> : <CaretLeft size={16} />}
       </button>
 
-      <div className="flex flex-col gap-2 p-4 mt-16">
+      <div className="flex flex-col gap-2 mt-16 p-2">
         {menuItems.map((items) => (
           <SidebarItem
             icon={items.icon}
