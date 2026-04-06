@@ -12,7 +12,7 @@ import {
 } from "@phosphor-icons/react";
 
 function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const menuItems = [
     {
@@ -49,7 +49,7 @@ function Sidebar() {
     link: string;
   }) => (
     <NavLink to={link}>
-      <div className="flex w-full items-center justify-center gap-4 p-3 rounded-lg hover:bg-primary cursor-pointer transition-all">
+      <div className="flex w-full items-center justify-center gap-4 p-3 rounded-lg hover:bg-background/50 cursor-pointer transition-all">
         <div className="min-w-6 ">{icon}</div>
 
         {!isCollapsed && (
@@ -68,9 +68,9 @@ function Sidebar() {
 
   return (
     <motion.aside
-      initial={false}
+      initial={true}
       animate={{ width: isCollapsed ? 80 : 260 }}
-      className="relative flex my-3 rounded-2xl flex-col h-screen bg-background"
+      className="relative flex rounded-2xl flex-col h-10/11 bg-secondary"
     >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
