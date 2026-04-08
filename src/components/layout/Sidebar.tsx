@@ -16,21 +16,25 @@ function Sidebar() {
 
   const menuItems = [
     {
+      id: 1,
       title: "Overview",
       path: "/dashboard",
       icon: <HouseLineIcon size={28} weight="bold" />,
     },
     {
+      id: 2,
       title: "Inventory",
       path: "/inventory",
       icon: <PackageIcon size={28} weight="bold" />,
     },
     {
+      id: 3,
       title: "Orders",
       path: "/orders",
       icon: <ReceiptIcon size={28} weight="bold" />,
     },
     {
+      id: 4,
       title: "Customers",
       path: "/customers",
       icon: <UsersThree size={28} weight="bold" />,
@@ -43,6 +47,7 @@ function Sidebar() {
     isCollapsed,
     link,
   }: {
+    id: number;
     icon: ReactNode;
     label: string;
     isCollapsed: boolean;
@@ -70,7 +75,7 @@ function Sidebar() {
     <motion.aside
       initial={true}
       animate={{ width: isCollapsed ? 80 : 260 }}
-      className="relative flex rounded-2xl flex-col h-10/11 bg-secondary"
+      className="relative flex rounded-2xl flex-col h-full bg-secondary"
     >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -81,12 +86,15 @@ function Sidebar() {
 
       <div className="flex flex-col gap-2 mt-16 p-2">
         {menuItems.map((items) => (
-          <SidebarItem
-            icon={items.icon}
-            label={items.title}
-            isCollapsed={isCollapsed}
-            link={items.path}
-          ></SidebarItem>
+          <div key={items.id}>
+            <SidebarItem
+              id={items.id}
+              icon={items.icon}
+              label={items.title}
+              isCollapsed={isCollapsed}
+              link={items.path}
+            ></SidebarItem>
+          </div>
         ))}
       </div>
     </motion.aside>
