@@ -33,6 +33,17 @@ const Inventory = () => {
     } catch (err) {
       const error = err as FirebaseError;
       toast.error("Error: " + error.message);
+    } finally {
+      setFormData({
+        name: "",
+        description: "",
+        price: 0,
+        stock: 0,
+        imageUrl: "",
+        category: "Noodles",
+        origin: "Korea",
+        isSpicy: false,
+      });
     }
   };
 
@@ -55,15 +66,30 @@ const Inventory = () => {
 
   return (
     <div>
-      <div className="inline-block rounded-lg p-2 bg-layersBackground">
-        <h1>Product List:</h1>
+      <div className="w-full inline-block rounded-lg p-2 bg-layersBackground">
+        <h1 className="font-bold mb-2">Product List:</h1>
         {products.length === 0 ? (
           <p>The warehouse is currently empty.</p>
         ) : (
-          <ul>
+          <ul className="grid grid-cols-3 gap-3">
             {products.map((item) => (
-              <li key={item.id}>
-                {item.name} — {item.stock} pieces.
+              <li
+                key={item.id}
+                className="flex border-2 p-1 rounded-lg border-border gap-1"
+              >
+                <img
+                  className="max-w-40 rounded-lg"
+                  src={item.imageUrl}
+                  alt=""
+                />
+                <div>
+                  <p>Name: {item.name}</p>
+                  <p>Price: ${item.price}</p>
+                  <p>Stock: {item.stock}</p>
+                  <p>Spicy: {item.isSpicy ? "spicy" : "not spicy"}</p>
+                  <p>Category: {item.category}</p>
+                  <p>Origin: {item.origin}</p>
+                </div>
               </li>
             ))}
           </ul>
@@ -80,7 +106,7 @@ const Inventory = () => {
               <label className="text-sm font-semibold ">Name: </label>
               <input
                 type="text"
-                className="border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+                className="px-1 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
                 required
                 value={formData.name}
                 onChange={(e) =>
@@ -92,9 +118,9 @@ const Inventory = () => {
               <label className="text-sm font-semibold ">Price: </label>
               <input
                 type="number"
-                className="border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+                className="px-1 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
                 required
-                value={formData.price}
+                value={formData.price || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, price: Number(e.target.value) })
                 }
