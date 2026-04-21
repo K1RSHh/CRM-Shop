@@ -4,7 +4,7 @@ import Sidebar from "../components/layout/Sidebar";
 
 const MainLayout = () => {
   return (
-    <div className="flex h-screen w-full bg-background overflow-hidden p-2 gap-2 rounded-2xl">
+    <div className="flex h-screen w-full bg-mainBackground overflow-hidden p-2 gap-2 rounded-2xl">
       <Sidebar />
 
       <div className="flex flex-col flex-1 min-w-0 bg-secondary rounded-2xl border border-border">

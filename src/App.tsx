@@ -25,7 +25,7 @@ function App() {
 
   if (isLoading)
     return (
-      <div className="h-screen flex items-center justify-center bg-background">
+      <div className="h-screen flex items-center justify-center bg-mainBackground">
         Loading...
       </div>
     );

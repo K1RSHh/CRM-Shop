@@ -11,10 +11,10 @@ body {
 }
 
 @theme {
-  --color-primary: #c5c7bc; /* Earthy Tan */
+  --color-mainBackground: #deded1; /* Earthy Tan */
   --color-primary-foreground: #ffffff;
 
-  --color-secondary: #c5c7bc; /* Sage Green */
+  --color-layersBackground: #c5c7bc; /* Sage Green */
   --color-secondary-foreground: #2d2d2d;
 
   --color-muted: #deded1; /* Light Beige */

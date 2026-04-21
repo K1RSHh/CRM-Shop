@@ -75,11 +75,11 @@ function Sidebar() {
     <motion.aside
       initial={true}
       animate={{ width: isCollapsed ? 80 : 260 }}
-      className="relative flex rounded-2xl flex-col h-full bg-secondary"
+      className="relative flex rounded-2xl flex-col h-full bg-layersBackground"
     >
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-10 cursor-pointer bg-secondary text-black rounded-full p-1 border border-black shadow-md hover:bg-accent transition-colors"
+        className="absolute -right-3 top-10 cursor-pointer bg-layersBackground text-black rounded-full p-1 border border-black shadow-md hover:bg-accent transition-colors"
       >
         {isCollapsed ? <CaretRight size={16} /> : <CaretLeft size={16} />}
       </button>
