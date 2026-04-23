@@ -20,6 +20,7 @@ body {
   --color-muted: #deded1; /* Light Beige */
   --color-background: #deded1; /* Pale Cream (Background) */
   --color-foreground: #3a3a3a;
+  --color-button: #e3dbba;
 
   --color-border: #deded1;
   --color-input: #deded1;

@@ -6,8 +6,14 @@ import { toast } from "sonner";
 import type { TCategory } from "../types/product";
 import type { TOrigin } from "../types/product";
 import { motion } from "motion/react";
+import ProductList from "../components/inventory/ProductList";
+import {
+  PlusCircleIcon,
+  MinusCircleIcon,
+} from "@phosphor-icons/react/dist/ssr";
 
 const Inventory = () => {
+  const [productOpen, SetProductOpen] = useState(false);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState<Omit<IProduct, "id" | "createdAt">>({
@@ -24,11 +30,13 @@ const Inventory = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const newId = await productService.addProduct({
+      const productData: Omit<IProduct, "id"> = {
         ...formData,
         createdAt: Date.now(),
-      });
-      console.log("add new product", newId);
+      };
+
+      await productService.addProduct(productData);
+      console.log("add new product", productData);
       toast.success("The product has been successfully added!");
     } catch (err) {
       const error = err as FirebaseError;
@@ -62,38 +70,25 @@ const Inventory = () => {
     fetchProducts();
   }, [products]);
 
-  if (loading) return <div>Product loading...</div>;
-
   return (
     <div>
-      <div className="w-full inline-block rounded-lg p-2 bg-layersBackground">
-        <h1 className="font-bold mb-2">Product List:</h1>
-        {products.length === 0 ? (
-          <p>The warehouse is currently empty.</p>
+      <div className="bg-layersBackground rounded-lg">
+        {productOpen ? (
+          <div className="flex p-2 items-center text-center">
+            <button onClick={() => SetProductOpen(!productOpen)}>
+              <MinusCircleIcon size={32} />
+            </button>
+            <h1 className="font-bold">Close product List</h1>
+          </div>
         ) : (
-          <ul className="grid grid-cols-3 gap-3">
-            {products.map((item) => (
-              <li
-                key={item.id}
-                className="flex border-2 p-1 rounded-lg border-border gap-1"
-              >
-                <img
-                  className="max-w-40 rounded-lg"
-                  src={item.imageUrl}
-                  alt=""
-                />
-                <div>
-                  <p>Name: {item.name}</p>
-                  <p>Price: ${item.price}</p>
-                  <p>Stock: {item.stock}</p>
-                  <p>Spicy: {item.isSpicy ? "spicy" : "not spicy"}</p>
-                  <p>Category: {item.category}</p>
-                  <p>Origin: {item.origin}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="flex p-2 items-center text-center">
+            <button onClick={() => SetProductOpen(!productOpen)}>
+              <PlusCircleIcon size={32} />
+            </button>
+            <h1 className="font-bold">Open product List</h1>
+          </div>
         )}
+        {productOpen && <ProductList />}
       </div>
       <form
         onSubmit={handleSubmit}
@@ -240,7 +235,7 @@ const Inventory = () => {
               whileTap={{ scale: 0.9 }}
               disabled={loading}
               type="submit"
-              className="w-full cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg shadow-md"
+              className="w-full cursor-pointer bg-button hover:bg-button/50 text-black font-bold py-3 px-4 rounded-lg shadow-md"
             >
               {loading ? "We store it in Firebase..." : "Add item to inventory"}
             </motion.button>
