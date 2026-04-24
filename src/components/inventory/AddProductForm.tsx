@@ -6,9 +6,9 @@ import type { FirebaseError } from "firebase/app";
 import { productService } from "../../services/productService";
 import { motion } from "motion/react";
 import { toast } from "sonner";
+import { useInventoryStore } from "../../store/useInventoryStore";
 
 function AddProductForm() {
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<Omit<IProduct, "id" | "createdAt">>({
     name: "",
     description: "",
@@ -20,6 +20,9 @@ function AddProductForm() {
     isSpicy: false,
   });
 
+  const addProducts = useInventoryStore((state) => state.addProduct);
+  const loading = useInventoryStore((state) => state.isLoading);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -29,9 +32,10 @@ function AddProductForm() {
       };
 
       await productService.addProduct(productData);
-      console.log("add new product", productData);
+
+      await addProducts(productData);
+
       toast.success("The product has been successfully added!");
-      setLoading(false);
     } catch (err) {
       const error = err as FirebaseError;
       toast.error("Error: " + error.message);

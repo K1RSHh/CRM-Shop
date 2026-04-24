@@ -8,7 +8,7 @@ const MainLayout = () => {
       <Sidebar />
 
       <div className="flex flex-col flex-1 min-w-0 bg-secondary rounded-2xl border border-border">
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-2">
           <div className="mx-auto max-w-400">
             <Outlet />
           </div>

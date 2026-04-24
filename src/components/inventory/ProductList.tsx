@@ -1,27 +1,24 @@
-import { useEffect, useState } from "react";
-import { productService } from "../../services/productService";
-import type { IProduct } from "../../types/product";
+import { useEffect } from "react";
+import { useInventoryStore } from "../../store/useInventoryStore";
 
 function ProductList() {
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const fetchProducts = useInventoryStore((state) => state.fetchProducts);
+  const products = useInventoryStore((state) => state.products);
+  const loading = useInventoryStore((state) => state.isLoading);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await productService.getAllProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error("Oh, something went wrong:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchProducts();
-  }, [products]);
+  }, []);
 
-  if (loading) return <div>Product loading...</div>;
+  if (loading && products.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <p className="animate-pulse text-lg font-medium">
+          Loading inventory...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div>
